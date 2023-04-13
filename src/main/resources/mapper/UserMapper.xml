@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace属性指定当前映射文件和哪个接口进行映射，需要标注包的完整路径接口-->
+<mapper namespace="com.example.demo.mapper.UserMapper">
+    <!--自定义映射规则-->
+    <resultMap id="DifUser" type="com.example.demo.entity.User">
+        <id column="user_id" property="userId"></id>
+        <result column="user_account" property="userAccount"></result>
+        <result column="user_name" property="userName"></result>
+        <result column="salt" property="salt"></result>
+        <result column="email" property="email"></result>
+    </resultMap>
+    <!--id指定接口方法的名称-->
+    <select id="login" resultMap="DifUser">
+            select * from user where user_account=#{userAccount}
+    </select>
+    <insert id="insert">
+        INSERT INTO user(user_account,password,salt,user_name,email) values (#{userAccount},#{password},#{salt},#{userName},#{email})
+    </insert>
+
+    <!--当表的字段和类的对象的属性不一致时，来自定义查询结果集的映射规则-->
+    <select id="findByUsername" resultMap="DifUser">
+        SELECT * FROM user WHERE user_name=#{userName}
+    </select>
+
+    <delete id="deleteById">
+        DELETE FROM user WHERE user_id=#{userId}
+    </delete>
+
+    <update id="update">
+        update user set user_account=#{userAccount},user_name=#{userName},email=#{email} where user_id=#{userId}
+    </update>
+</mapper>
+
