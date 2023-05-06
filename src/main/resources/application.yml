@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     username: root
-    password: Fuckingsql_
+    password: root123
     url: jdbc:mysql://47.94.233.53:3306/api_test?serverTimezone=UTC&userUnicode=true&characterEncoding=utf-8
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource

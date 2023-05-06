@@ -9,7 +9,6 @@ import com.example.demo.utils.Result;
 import com.example.demo.utils.UserException.UsernameOrPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 
 
@@ -18,6 +17,14 @@ import java.util.HashMap;
 public class UserController {
     @Autowired
     private UserService userService;
+
+    @GetMapping("/test")
+    public Result testMeothd(){
+        Result result = new Result();
+        result.success("测试数据成功");
+        return result;
+    }
+
 
     @GetMapping("/{username}")
     public Result findByUsername(@PathVariable String username){
@@ -33,9 +40,9 @@ public class UserController {
     }
 
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register")
     @ResponseBody
-    public Result register(User user){
+    public Result register(@RequestBody User user){
         Result result = new Result();
         try {
             userService.register(user);
@@ -52,8 +59,8 @@ public class UserController {
         return result;
     }
 
-    @PostMapping("/login")
-    public Result login(User user){
+    @PostMapping(value = "/login")
+    public Result login(@RequestBody User user){
         Result result = new Result();
         try {
             User userInfo = userService.login(user);
